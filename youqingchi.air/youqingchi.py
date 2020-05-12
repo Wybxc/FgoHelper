@@ -7,7 +7,7 @@ using("utils.air")
 from utils import *
 auto_setup(__file__)
 
-points = 100000
+points = 300000
 count = int(points/2000)
 
 

@@ -9,23 +9,39 @@ from utils import *
 import random
 auto_setup(__file__)
 
-repeat_count = 8
+repeat_count = 1
+use_gold_apple = False
 guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
+
+# 绿卡队（3T）
+settings = [
+    [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
+    [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
+    [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
+]
+
+# 绿卡队（2T）
 # settings = [
 #     [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
-#     [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
-#     [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'card':'BQA'}],
+#     [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'},{}],
+#     [{}],
 # ]
-settings = [
-    [{'skill':[1, 7], 'noble':[], 'card':'ABQ', 'weak':False},{'card':'ABQ', 'weak':False}],
-    [{'skill':[4, 5], 'noble':[2], 'card':'ABQ', 'aim':1, 'weak':False},{'card':'ABQ', 'noble':[2], 'weak':False}],
-    [{'skill':[2, 3, -2, -3, 5, 6, 8, 9], 'noble':[1, 2, 3], 'card':'ABQ', 'aim':2}, {'aim':2, 'card':'ABQ', 'noble':[1, 2, 3]}],
-]
+
+# settings = [
+#     [{'skill':[1, 7], 'noble':[], 'card':'ABQ', 'weak':False},{'card':'ABQ', 'weak':False}],
+#     [{'skill':[4, 5], 'noble':[2], 'card':'ABQ', 'aim':1, 'weak':False},{'card':'ABQ', 'noble':[2], 'weak':False}],
+#     [{'skill':[2, 3, -2, -3, 5, 6, 8, 9], 'noble':[1, 2, 3], 'card':'ABQ', 'aim':2}, {'aim':2, 'card':'ABQ', 'noble':[1, 2, 3]}],
+# ]
+
+# 平A
+# settings = [
+#     [{}], [{}], [{'skill':[6, 9], 'noble': [1]}]
+# ]
+
 # settings = [
 #     [{'skill':[1,2,4,5,6,7,9,-1,-2], 'noble':[3,2,1], 'card':'BQA'}, {'skill':[3],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[8],'noble':[3,2,1], 'card':'BQA'}]
 # ]
-use_gold_apple = True
 
 USE_ENGLISH = False
 battle_menu = Template(r"tpl1572102737403.png", record_pos=(0.43, -0.118), resolution=(1920, 1080))
@@ -41,8 +57,8 @@ else:
     quick = Template(r"tpl1573189752526.png", rgb=True, record_pos=(0.205, 0.163), resolution=(1280, 720))
 weak = Template(r"tpl1571982387586.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.021), resolution=(1280, 720))
 resist = Template(r"tpl1571892409672.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.015), resolution=(1280, 720))
-attack = Template(r"tpl1574608171542.png", target_pos=2, record_pos=(0.396, 0.223), resolution=(1280, 720))
-battles = [[Template(r"tpl1572044714997.png", threshold=0.85, record_pos=(0.194, -0.261), resolution=(1920, 1080)),Template(r"tpl1574610591486.png", threshold=0.8500000000000001, record_pos=(0.196, -0.26), resolution=(1280, 720)),Template(r"tpl1573214400260.png", threshold=0.85, record_pos=(0.195, -0.261), resolution=(1280, 720)),Template(r"tpl1573209950447.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))],[Template(r"tpl1572044768044.png", threshold=0.87, record_pos=(0.193, -0.263), resolution=(1920, 1080)),Template(r"tpl1573534028433.png", threshold=0.87, record_pos=(0.195, -0.263), resolution=(1280, 720)),Template(r"tpl1573214509933.png", threshold=0.8500000000000002, record_pos=(0.195, -0.261), resolution=(1280, 720))],[Template(r"tpl1572017870330.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))]]
+attack = Template(r"tpl1575520639093.png", threshold=0.8, target_pos=4, record_pos=(0.451, 0.192), resolution=(1280, 720))
+battles = [[Template(r"tpl1572044714997.png", threshold=0.85, record_pos=(0.194, -0.261), resolution=(1920, 1080)),Template(r"tpl1574610591486.png", threshold=0.8500000000000001, record_pos=(0.196, -0.26), resolution=(1280, 720)),Template(r"tpl1573214400260.png", threshold=0.85, record_pos=(0.195, -0.261), resolution=(1280, 720)),Template(r"tpl1581556537739.png", threshold=0.85, record_pos=(0.194, -0.263), resolution=(1280, 720)),Template(r"tpl1573209950447.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))],[Template(r"tpl1572044768044.png", threshold=0.87, record_pos=(0.193, -0.263), resolution=(1920, 1080)),Template(r"tpl1573534028433.png", threshold=0.87, record_pos=(0.195, -0.263), resolution=(1280, 720)),Template(r"tpl1573214509933.png", threshold=0.8500000000000002, record_pos=(0.195, -0.261), resolution=(1280, 720)),Template(r"tpl1581557622159.png", record_pos=(0.193, -0.262), resolution=(1280, 720))],[Template(r"tpl1572017870330.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))]]
 aims = [[0.083, 0.329], [0.233, 0.316], [0.404, 0.341]]
 cards = list(zip([0.094, 0.290, 0.492, 0.695, 0.900], [0.694]*5))
 skills = list(zip([0.046, 0.121, 0.195, 0.296, 0.371, 0.445, 0.546, 0.621, 0.695], [0.791]*9))
@@ -162,6 +178,7 @@ def play_level():
         else:
             return
     # 选择助战
+    sleep(2)
     if exists_ac(Template(r"tpl1572080305639.png", record_pos=(0.397, -0.255), resolution=(1920, 1080))):
         try_cnt = 0
         while not ttouch(guest):
