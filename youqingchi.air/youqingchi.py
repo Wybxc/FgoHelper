@@ -13,10 +13,10 @@ count = int(points/2000)
 
 
 for i in range(count):
-    vtouch(Template(r"tpl1572273606796.png", record_pos=(0.145, 0.152), resolution=(1280, 720)))
+    vtouch(Template(r"tpl1598011245146.png", record_pos=(0.155, 0.162), resolution=(1280, 720)))
     sleep(1.5)
     vtouch([0.657, 0.785])
-    while not ttouch(Template(r"tpl1572273685570.png", record_pos=(0.096, 0.245), resolution=(1280, 720))):
+    while not ttouch(Template(r"tpl1598011182924.png", record_pos=(0.095, 0.246), resolution=(1280, 720))):
         vtouch([0.963, 0.751])
         sleep(0.5)
     

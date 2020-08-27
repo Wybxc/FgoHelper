@@ -9,16 +9,23 @@ from utils import *
 import random
 auto_setup(__file__)
 
-repeat_count = 1
+repeat_count = 10
 use_gold_apple = False
 guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
 
-# 绿卡队（3T）
+# # 绿卡队（3T）
+# settings = [
+#     [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
+#     [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
+#     [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
+# ]
+
+# 陈宫（3T）
 settings = [
-    [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
-    [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
-    [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
+    [{'skill': [2, 5, 6, 8, 9], 'noble': [1], 'card': 'AQB'}, {}],
+    [{'skill': [5, 6], 'noble': [1], 'card': 'AQB'}, {}],
+    [{'skill': [4, 6, -2], 'noble': [1], 'card': 'AQB', 'aim': 1}, {'noble': [1], 'card': 'AQB'}]
 ]
 
 # 绿卡队（2T）
@@ -52,9 +59,9 @@ if USE_ENGLISH:
     buster = Template(r"tpl1571842613709.png", threshold=0.6, rgb=True, record_pos=(0.209, 0.163), resolution=(1280, 720))
     quick = Template(r"tpl1571981133472.png", threshold=0.6, rgb=True, record_pos=(-0.19, 0.172), resolution=(1280, 720))
 else:    
-    arts = Template(r"tpl1573189712475.png", rgb=True, record_pos=(0.407, 0.162), resolution=(1280, 720))
-    buster = Template(r"tpl1573189736502.png", rgb=True, record_pos=(-0.393, 0.167), resolution=(1280, 720))
-    quick = Template(r"tpl1573189752526.png", rgb=True, record_pos=(0.205, 0.163), resolution=(1280, 720))
+    arts = Template(r"tpl1589849650624.png", rgb=True, record_pos=(-0.197, 0.167), resolution=(1280, 720))
+    buster = Template(r"tpl1589849640097.png", rgb=True, record_pos=(-0.395, 0.161), resolution=(1280, 720))
+    quick = Template(r"tpl1589849661660.png", rgb=True, record_pos=(0.007, 0.177), resolution=(1280, 720))
 weak = Template(r"tpl1571982387586.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.021), resolution=(1280, 720))
 resist = Template(r"tpl1571892409672.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.015), resolution=(1280, 720))
 attack = Template(r"tpl1575520639093.png", threshold=0.8, target_pos=4, record_pos=(0.451, 0.192), resolution=(1280, 720))
@@ -98,7 +105,7 @@ def use_skill(index, target=0, master=False):
            
 
 def analyze_cards():
-    sleep(0.25)
+    wait(Template(r"tpl1589849523786.png", record_pos=(0.436, 0.251), resolution=(1280, 720)))
     result = []
     for i in range(5):
         result.append({'type':'Arts', 'weak':0})
@@ -198,8 +205,8 @@ def play_level():
         sleep(1)
     # 开始
     if exists_ac(Template(r"tpl1572080345669.png", record_pos=(0.401, -0.253), resolution=(1920, 1080))):
-        vtouch(Template(r"tpl1571844621057.png", record_pos=(0.427, 0.242), resolution=(1280, 720)))
-        sleep(0.5)
+        sleep(1)
+        vtouch(Template(r"tpl1571844621057.png", record_pos=(0.427, 0.242), resolution=(1280, 720)))        
     wait(attack, interval=2, timeout=240)
     for i in range(1, 4):
         round_cnt = 0
@@ -219,14 +226,6 @@ def play_level():
     while not ttouch(Template(r"tpl1572134881355.png", record_pos=(0.361, 0.246), resolution=(1920, 1080))):
         vtouch([0.471, 0.876])
         sleep(1.5)
-    for i in range(3):
-        b, w = mwait([Template(r"tpl1573220121940.png", record_pos=(-0.414, -0.247), resolution=(1280, 720)), Template(r"tpl1573225257140.png", record_pos=(-0.24, 0.201), resolution=(1280, 720)), Template(r"tpl1573215200285.png", record_pos=(-0.138, 0.128), resolution=(1280, 720)),Template(r"tpl1572134881355.png", record_pos=(0.361, 0.246), resolution=(1920, 1080))], timeout=120)
-        if b >= 1:
-            vtouch(w)
-        else:
-            break
-    wait(Template(r"tpl1573220121940.png", record_pos=(-0.414, -0.247), resolution=(1280, 720)), timeout=120)
-    sleep(3)
     
 
 if True:
@@ -234,6 +233,8 @@ if True:
         print('Battle: ' + str(i+1))
         try:
             play_level()
+            if i != repeat_count - 1:
+                vtouch(Template(r"tpl1598268548877.png", record_pos=(0.156, 0.159), resolution=(1280, 720)))
         except TargetNotFoundError:
             continue
 
