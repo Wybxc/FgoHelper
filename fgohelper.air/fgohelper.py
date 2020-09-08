@@ -13,20 +13,21 @@ repeat_count = 10
 use_gold_apple = False
 guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
+# guest = Template(r"tpl1598748597104.png", record_pos=(-0.398, 0.098), resolution=(1280, 720))
 
-# # 绿卡队（3T）
-# settings = [
-#     [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
-#     [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
-#     [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
-# ]
+# 绿卡队（3T）
+settings = [
+    [{'skill':[6], 'noble':[2], 'card':'BAQ'},{}],
+    [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1},{}],
+    [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
+]
 
 # 陈宫（3T）
-settings = [
-    [{'skill': [2, 5, 6, 8, 9], 'noble': [1], 'card': 'AQB'}, {}],
-    [{'skill': [5, 6], 'noble': [1], 'card': 'AQB'}, {}],
-    [{'skill': [4, 6, -2], 'noble': [1], 'card': 'AQB', 'aim': 1}, {'noble': [1], 'card': 'AQB'}]
-]
+# settings = [
+#     [{'skill': [2, 5, 6, 8, 9], 'noble': [1], 'card': 'AQB'}, {}],
+#     [{'skill': [5, 6], 'noble': [1], 'card': 'AQB'}, {}],
+#     [{'skill': [4, 6, -2], 'noble': [1], 'card': 'AQB', 'aim': 1}, {'noble': [1], 'card': 'AQB'}]
+# ]
 
 # 绿卡队（2T）
 # settings = [
@@ -59,9 +60,9 @@ if USE_ENGLISH:
     buster = Template(r"tpl1571842613709.png", threshold=0.6, rgb=True, record_pos=(0.209, 0.163), resolution=(1280, 720))
     quick = Template(r"tpl1571981133472.png", threshold=0.6, rgb=True, record_pos=(-0.19, 0.172), resolution=(1280, 720))
 else:    
-    arts = Template(r"tpl1589849650624.png", rgb=True, record_pos=(-0.197, 0.167), resolution=(1280, 720))
-    buster = Template(r"tpl1589849640097.png", rgb=True, record_pos=(-0.395, 0.161), resolution=(1280, 720))
-    quick = Template(r"tpl1589849661660.png", rgb=True, record_pos=(0.007, 0.177), resolution=(1280, 720))
+    arts = [Template(r"tpl1589849650624.png", rgb=True, record_pos=(-0.197, 0.167), resolution=(1280, 720)),Template(r"tpl1599539289137.png", rgb=True, record_pos=(-0.395, 0.163), resolution=(1280, 720))]
+    buster = [Template(r"tpl1589849640097.png", rgb=True, record_pos=(-0.395, 0.161), resolution=(1280, 720)),Template(r"tpl1599539316935.png", rgb=True, record_pos=(0.206, 0.159), resolution=(1280, 720)),Template(r"tpl1599539336551.png", rgb=True, record_pos=(0.409, 0.164), resolution=(1280, 720))]
+    quick = [Template(r"tpl1589849661660.png", rgb=True, record_pos=(0.007, 0.177), resolution=(1280, 720)),Template(r"tpl1599539348525.png", rgb=True, record_pos=(0.004, 0.163), resolution=(1280, 720))]
 weak = Template(r"tpl1571982387586.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.021), resolution=(1280, 720))
 resist = Template(r"tpl1571892409672.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.015), resolution=(1280, 720))
 attack = Template(r"tpl1575520639093.png", threshold=0.8, target_pos=4, record_pos=(0.451, 0.192), resolution=(1280, 720))
@@ -88,11 +89,11 @@ def use_skill(index, target=0, master=False):
             vtouch((0.633 + index * 0.070, 0.417))
             check_in_battle()
         sleep(0.5)
-        confirm =  find_all(Template(r"tpl1571892861311.png", threshold=0.7, record_pos=(0.163, 0.049), resolution=(1280, 720)))
+        confirm = find_all(Template(r"tpl1571892861311.png", threshold=0.7, record_pos=(0.163, 0.049), resolution=(1280, 720)))
     confirm = confirm[0]['result']        
     if confirm[0]/width > 0.5:
         vtouch(confirm)
-        sleep(0.5)
+        sleep(0.8)
         if find_all(Template(r"tpl1571981495644.png", record_pos=(0.002, -0.13), resolution=(1280, 720))):
             sleep(0.1)
             vtouch((0.25 + target * 0.246, 0.625))
@@ -106,14 +107,22 @@ def use_skill(index, target=0, master=False):
 
 def analyze_cards():
     wait(Template(r"tpl1589849523786.png", record_pos=(0.436, 0.251), resolution=(1280, 720)))
+    sleep(0.3)
     result = []
     for i in range(5):
         result.append({'type':'Arts', 'weak':0})
     def get_position(v):
-        f = find_all(v)        
+        f = []
+        if isinstance(v, list):
+            for v0 in v:
+                f = find_all(v0)
+                if f:
+                    break
+        else:
+            f = find_all(v)
         return [s['result'][0] / width for s in f if s['result'][1] > 0.45*height] if f else []
 
-    for x in  get_position(buster):
+    for x in get_position(buster):
         result[int(x/0.2)]['type'] = 'Buster'
     for x in get_position(arts):
         result[int(x/0.2)]['type'] = 'Arts'
@@ -146,7 +155,7 @@ def play_round(aim=0, skill=[], noble=[], card='BAQ', weak=True):
         else:
             use_skill(-s, master=True)
     vtouch(attack)
-    sleep(0.3)
+    sleep(1)
     card_info = analyze_cards()
     for n in noble:
         vtouch(nobles[n-1])
@@ -239,6 +248,6 @@ if True:
             continue
 
 else:
-    print(get_battle())
+    print(analyze_cards())
     pass
 

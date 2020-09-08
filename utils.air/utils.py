@@ -24,10 +24,11 @@ def vtouch(v, delta=30):
     else:
         x, y = v
         if x < 1 or y < 1:
-            x *= width + offset_x
-            y *= height + offset_y
+            x = x * width + offset_x
+            y = y * height + offset_y
     x = x + (0.5 - random.random()) * delta
     y = y + (0.5 - random.random()) * delta
+#     print('touch: {}, {}'.format(x,y))
     return touch((x, y))
 
 
