@@ -1,6 +1,10 @@
 # -*- encoding=utf8 -*-
 __author__ = "忘忧北萱草"
 
+import logging
+logger = logging.getLogger("airtest")
+logger.setLevel(logging.INFO)
+
 from airtest.core.api import *
 ST.FIND_TIMEOUT_TMP = 1.5
 using("utils.air")
@@ -9,8 +13,8 @@ from utils import *
 import random
 auto_setup(__file__)
 
-repeat_count = 10
-use_gold_apple = False
+repeat_count = 20
+use_gold_apple = True
 guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
 # guest = Template(r"tpl1598748597104.png", record_pos=(-0.398, 0.098), resolution=(1280, 720))
@@ -178,8 +182,26 @@ def play_round(aim=0, skill=[], noble=[], card='BAQ', weak=True):
             break            
             
             
+def select_guest():
+    try_cnt = 0
+    while not ttouch(guest):
+        try_cnt += 1
+        swipe((0.508*width, 0.806*height), vector=[(random.random() - 0.5) * 0.01, -0.3 + random.random() * 0.01])
+        if find_all(Template(r"tpl1571843575054.png", record_pos=(0.47, 0.065), resolution=(1280, 720))) or try_cnt >= 5:
+            try_cnt = 0
+            while True:
+                vtouch(Template(r"tpl1573214218300.png", record_pos=(0.164, -0.178), resolution=(1280, 720)))
+                sleep(0.5)
+                ok = find_all(Template(r"tpl1571843623473.png", record_pos=(0.155, 0.156), resolution=(1280, 720)))
+                if not ok:
+                    vtouch(Template(r"tpl1571843685330.png", record_pos=(0.001, 0.157), resolution=(1280, 720)))
+                else:
+                    vtouch(ok[0]['result'])
+                    break
+    sleep(1)
             
-def play_level():
+        
+def before_level():
     # 进入关卡
     if exists_ac(Template(r"tpl1573220121940.png", record_pos=(-0.414, -0.247), resolution=(1280, 720))):
         vtouch((0.695, 0.319))
@@ -196,23 +218,9 @@ def play_level():
     # 选择助战
     sleep(2)
     if exists_ac(Template(r"tpl1572080305639.png", record_pos=(0.397, -0.255), resolution=(1920, 1080))):
-        try_cnt = 0
-        while not ttouch(guest):
-            try_cnt += 1
-            swipe((0.508*width, 0.806*height), vector=[(random.random() - 0.5) * 0.01, -0.3 + random.random() * 0.01])
-            if find_all(Template(r"tpl1571843575054.png", record_pos=(0.47, 0.065), resolution=(1280, 720))) or try_cnt >= 5:
-                try_cnt = 0
-                while True:
-                    vtouch(Template(r"tpl1573214218300.png", record_pos=(0.164, -0.178), resolution=(1280, 720)))
-                    sleep(0.5)
-                    ok = find_all(Template(r"tpl1571843623473.png", record_pos=(0.155, 0.156), resolution=(1280, 720)))
-                    if not ok:
-                        vtouch(Template(r"tpl1571843685330.png", record_pos=(0.001, 0.157), resolution=(1280, 720)))
-                    else:
-                        vtouch(ok[0]['result'])
-                        break
-        sleep(1)
-    # 开始
+        select_guest()
+            
+def play_level():    
     if exists_ac(Template(r"tpl1572080345669.png", record_pos=(0.401, -0.253), resolution=(1920, 1080))):
         sleep(1)
         vtouch(Template(r"tpl1571844621057.png", record_pos=(0.427, 0.242), resolution=(1280, 720)))        
@@ -238,14 +246,17 @@ def play_level():
     
 
 if True:
+    before_level()
     for i in range(repeat_count):
         print('Battle: ' + str(i+1))
-        try:
+        try:            
             play_level()
             if i != repeat_count - 1:
                 vtouch(Template(r"tpl1598268548877.png", record_pos=(0.156, 0.159), resolution=(1280, 720)))
+                sleep(2)
+                select_guest()
         except TargetNotFoundError:
-            continue
+            before_level()
 
 else:
     print(analyze_cards())
