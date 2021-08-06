@@ -13,10 +13,12 @@ from utils import *
 import random
 auto_setup(__file__)
 
-repeat_count = 1
-use_gold_apple = False
+repeat_count = 30
+use_gold_apple = True
 use_order_change = True
-guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
+# guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
+guest = [Template(r"tpl1628209519321.png", threshold=0.5999999999999999, record_pos=(-0.374, -0.04), resolution=(1600, 900)), Template(r"tpl1628209546240.png", threshold=0.5999999999999999, record_pos=(-0.374, 0.115), resolution=(1600, 900))]
+
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
 # guest = Template(r"tpl1598748597104.png", record_pos=(-0.398, 0.098), resolution=(1280, 720))
 
@@ -28,9 +30,9 @@ guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolutio
 # ]
 
 # 换人礼装测试
-settings = [
-    [{'skill': [[-3, (2, 4)]]}, {}], [{}, {}], [{}, {}]
-]
+# settings = [
+#     [{'skill': [[-3, (2, 4)]]}, {}], [{}, {}], [{}, {}]
+# ]
 
 # 陈宫（3T）
 # settings = [
@@ -53,9 +55,9 @@ settings = [
 # ]
 
 # 平A
-# settings = [
-#     [{}], [{}], [{'skill':[6, 9], 'noble': [1]}]
-# ]
+settings = [
+    [{}], [{}], [{'skill':[6, 9], 'noble': [2, 1]}]
+]
 
 # settings = [
 #     [{'skill':[1,2,4,5,6,7,9,-1,-2], 'noble':[3,2,1], 'card':'BQA'}, {'skill':[3],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[8],'noble':[3,2,1], 'card':'BQA'}]
@@ -163,7 +165,7 @@ def play_round(aim=0, skill=[], noble=[], card='BAQ', weak=True):
         if isinstance(s, list) or isinstance(s, tuple):
             s, target = s
         else:
-            target = 0
+            target = 1
         if s > 0:
             use_skill(s, target=target)
         else:
