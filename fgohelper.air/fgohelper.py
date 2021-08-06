@@ -8,26 +8,25 @@ logger.setLevel(logging.WARNING)
 from airtest.core.api import *
 ST.FIND_TIMEOUT_TMP = 1.5
 using("utils.air")
-# from utils import width, height, ttouch, vtouch, mwait, exists_ac
 from utils import *
 import random
 auto_setup(__file__)
 
-repeat_count = 30
+repeat_count = 28
 use_gold_apple = True
-use_order_change = True
-# guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
-guest = [Template(r"tpl1628209519321.png", threshold=0.5999999999999999, record_pos=(-0.374, -0.04), resolution=(1600, 900)), Template(r"tpl1628209546240.png", threshold=0.5999999999999999, record_pos=(-0.374, 0.115), resolution=(1600, 900))]
+use_order_change = False
+guest = Template(r"tpl1573214186909.png", record_pos=(-0.396, -0.072), resolution=(1280, 720))
+# guest = [Template(r"tpl1628209519321.png", threshold=0.5999999999999999, record_pos=(-0.374, -0.04), resolution=(1600, 900)), Template(r"tpl1628209546240.png", threshold=0.5999999999999999, record_pos=(-0.374, 0.115), resolution=(1600, 900))]
 
 # guest = Template(r"tpl1574696001602.png", record_pos=(-0.398, 0.084), resolution=(1280, 720))
 # guest = Template(r"tpl1598748597104.png", record_pos=(-0.398, 0.098), resolution=(1280, 720))
 
 # 绿卡队（3T）
-# settings = [
-#     [{'skill':[6], 'noble':[2], 'card':'BAQ'}, {}],
-#     [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1}, {}],
-#     [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
-# ]
+settings = [
+    [{'skill':[6], 'noble':[2], 'card':'BAQ'}, {}],
+    [{'skill':[3, 4, 7, 8, 6], 'noble':[1], 'card':'BAQ', 'aim':1}, {}],
+    [{'skill':[1, 2, -2, -3, 5, 9], 'noble':[1, 2, 3], 'card':'BQA', 'aim':2},{'aim':2, 'noble':[1, 2, 3], 'card':'BQA'}],
+]
 
 # 换人礼装测试
 # settings = [
@@ -55,9 +54,9 @@ guest = [Template(r"tpl1628209519321.png", threshold=0.5999999999999999, record_
 # ]
 
 # 平A
-settings = [
-    [{}], [{}], [{'skill':[6, 9], 'noble': [2, 1]}]
-]
+# settings = [
+#     [{}], [{}], [{'skill':[6, 9], 'noble': [2, 1]}]
+# ]
 
 # settings = [
 #     [{'skill':[1,2,4,5,6,7,9,-1,-2], 'noble':[3,2,1], 'card':'BQA'}, {'skill':[3],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[],'noble':[3,2,1], 'card':'BQA'},{'skill':[8],'noble':[3,2,1], 'card':'BQA'}]
@@ -75,8 +74,8 @@ else:
     arts = [Template(r"tpl1628205010051.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.19, 0.169), resolution=(1600, 900)),Template(r"tpl1628205328213.png", threshold=0.5999999999999999, record_pos=(-0.218, 0.166), resolution=(1600, 900))]
     buster = [Template(r"tpl1628204791883.png", threshold=0.5999999999999999, rgb=True, record_pos=(0.203, 0.161), resolution=(1600, 900)),Template(r"tpl1628205354400.png", threshold=0.5999999999999999, record_pos=(0.181, 0.164), resolution=(1600, 900))]
     quick = [Template(r"tpl1628204875542.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.396, 0.163), resolution=(1600, 900)),Template(r"tpl1628205372065.png", threshold=0.5999999999999999, record_pos=(-0.018, 0.166), resolution=(1600, 900))]
-weak = [Template(r"tpl1628205045859.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.142, 0.022), resolution=(1600, 900)), Template(r"tpl1628205400122.png", threshold=0.7000000000000001, rgb=False, record_pos=(-0.351, 0.011), resolution=(1600, 900))]
-resist = [Template(r"tpl1628206818620.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.015), resolution=(1600, 900)), Template(r"tpl1628206868485.png", record_pos=(-0.351, 0.005), resolution=(1600, 900))]
+weak = [Template(r"tpl1628205045859.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.142, 0.022), resolution=(1600, 900)), Template(r"tpl1628205400122.png", threshold=0.8, rgb=False, record_pos=(-0.351, 0.011), resolution=(1600, 900))]
+resist = [Template(r"tpl1628206818620.png", threshold=0.5999999999999999, rgb=True, record_pos=(-0.339, 0.015), resolution=(1600, 900)), Template(r"tpl1628206868485.png", threshold=0.8, record_pos=(-0.351, 0.005), resolution=(1600, 900))]
 attack = Template(r"tpl1575520639093.png", threshold=0.8, target_pos=4, record_pos=(0.451, 0.192), resolution=(1280, 720))
 battles = [[Template(r"tpl1572044714997.png", threshold=0.85, record_pos=(0.194, -0.261), resolution=(1920, 1080)),Template(r"tpl1574610591486.png", threshold=0.8500000000000001, record_pos=(0.196, -0.26), resolution=(1280, 720)),Template(r"tpl1573214400260.png", threshold=0.85, record_pos=(0.195, -0.261), resolution=(1280, 720)),Template(r"tpl1581556537739.png", threshold=0.85, record_pos=(0.194, -0.263), resolution=(1280, 720)),Template(r"tpl1573209950447.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))],[Template(r"tpl1572044768044.png", threshold=0.87, record_pos=(0.193, -0.263), resolution=(1920, 1080)),Template(r"tpl1573534028433.png", threshold=0.87, record_pos=(0.195, -0.263), resolution=(1280, 720)),Template(r"tpl1573214509933.png", threshold=0.8500000000000002, record_pos=(0.195, -0.261), resolution=(1280, 720)),Template(r"tpl1581557622159.png", record_pos=(0.193, -0.262), resolution=(1280, 720))],[Template(r"tpl1572017870330.png", threshold=0.85, record_pos=(0.195, -0.262), resolution=(1280, 720))]]
 aims = [[0.083, 0.329], [0.233, 0.316], [0.404, 0.341]]
@@ -197,19 +196,18 @@ def play_round(aim=0, skill=[], noble=[], card='BAQ', weak=True):
 def select_guest():
     try_cnt = 0
     while not ttouch(guest):
+        if not find_all_plus(Template(r"tpl1572080305639.png", record_pos=(0.397, -0.255), resolution=(1920, 1080))):
+            return
         try_cnt += 1
         swipe((0.508*width, 0.806*height), vector=[(random.random() - 0.5) * 0.01, -0.3 + random.random() * 0.01])
-        if find_all_plus(Template(r"tpl1571843575054.png", record_pos=(0.47, 0.065), resolution=(1280, 720))) or try_cnt >= 5:
+        if find_all_plus(Template(r"tpl1571843575054.png", record_pos=(0.47, 0.065), resolution=(1280, 720))) or try_cnt >= 10:
             try_cnt = 0
             while True:
-                vtouch(Template(r"tpl1573214218300.png", record_pos=(0.164, -0.178), resolution=(1280, 720)))
-                sleep(0.5)
-                ok = find_all_plus(Template(r"tpl1571843623473.png", record_pos=(0.155, 0.156), resolution=(1280, 720)))
-                if not ok:
-                    vtouch(Template(r"tpl1571843685330.png", record_pos=(0.001, 0.157), resolution=(1280, 720)))
-                else:
-                    vtouch(ok[0]['result'])
-                    break
+                if ttouch(Template(r"tpl1573214218300.png", record_pos=(0.164, -0.178), resolution=(1280, 720))):
+                    sleep(0.5)
+                    vtouch(Template(r"tpl1571843623473.png", record_pos=(0.155, 0.156), resolution=(1280, 720)))
+                    sleep(3)
+                
     sleep(1)
             
         
@@ -264,6 +262,7 @@ if True:
         try:            
             play_level()
             if i != repeat_count - 1:
+                sleep(1)
                 vtouch(Template(r"tpl1598268548877.png", record_pos=(0.156, 0.159), resolution=(1280, 720)))
                 sleep(2)
                 select_guest()
