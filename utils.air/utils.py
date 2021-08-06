@@ -16,6 +16,14 @@ if width/height < 16/9:
     offset_y = (height - width * 9/16) * 0.5
     height = width * 9/16
 
+def find_all_plus(v):    
+    if isinstance(v, list):
+        for v0 in v:
+            f = find_all(v0)
+            if f:
+                return f
+    else:
+        return find_all(v)
     
 def vtouch(v, delta=30):
     if isinstance(v, Template):
@@ -33,7 +41,7 @@ def vtouch(v, delta=30):
 
 
 def ttouch(v, delta=30):
-    f = find_all(v)
+    f = find_all_plus(v)
     if f:
         vtouch(f[0]['result'], delta=delta)
     return f
